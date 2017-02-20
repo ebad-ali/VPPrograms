@@ -15,7 +15,7 @@ namespace Lab
             Console.Write("Your Age? : ");
             age = Int32.Parse(Console.ReadLine());
 
-            Console.WriteLine("Your Age is "+age);
+            Console.WriteLine("Your Age is  = "+age);
 
 
         }
