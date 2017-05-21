@@ -5,19 +5,77 @@ using System.Text;
 
 namespace Lab
 {
-    class Program
+
+    delegate double DoubleOp(double x);
+
+    class MathOperations
     {
-        
-        static void Main(string[] args)
+        //Both Static and non-static work
+        public static double MultiplyByTwo(double val)
         {
-            int age;
+            return val * 2;
+        }
 
-            Console.Write("Your Age? : ");
-            age = Int32.Parse(Console.ReadLine());
-
-            Console.WriteLine("Your Age is  = "+age);
-
-
+        public static double Square(double val)
+        {
+            return val * val;
         }
     }
+
+    class CSimpleDelegate
+    {
+        //What if I make it non static
+        public static void MyFunction(DoubleOp op, double vals)
+        {
+            double res = op(vals);
+            System.Console.WriteLine(res);
+        }
+
+    }
+
+    class Program
+    {
+        public delegate int Callthefactorial(int number);
+
+        static void Main(string[] args)
+        {
+
+            DoubleOp Func1 = new DoubleOp(MathOperations.MultiplyByTwo);
+            double x = Func1(3);
+            System.Console.WriteLine(x);
+
+            Func1 = new DoubleOp(MathOperations.Square);
+            x = Func1(3);
+            System.Console.WriteLine(x);
+
+            //passing a delegate to another function
+            CSimpleDelegate.MyFunction(Func1, 4);
+            System.Console.ReadLine();
+
+            /* Callthefactorial factptr = null;
+
+             factptr = calculateFactorial;
+
+             Console.WriteLine(factptr.Invoke(5).ToString());
+
+             Console.ReadLine();
+             */
+        }
+
+        public static int calculateFactorial(int num)
+        {
+            if (num > 0)
+            {
+                return num * calculateFactorial(num - 1);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
+    
 }
+
+
